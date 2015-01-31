@@ -16,7 +16,7 @@ public class TravelClaim {
 		status = Status.IN_PROGRESS;
 	}
 	
-	enum Status {
+	public enum Status {
 		IN_PROGRESS,
 		SUBMITTED,
 		RETURNED,
