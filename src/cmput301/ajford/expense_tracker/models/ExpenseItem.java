@@ -1,4 +1,4 @@
-package cmput301.ajford_notes.models;
+package cmput301.ajford.expense_tracker.models;
 
 import java.util.Date;
 import org.joda.money.Money;

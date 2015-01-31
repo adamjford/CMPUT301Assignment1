@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cmput301.ajford_notes.models;
+package cmput301.ajford.expense_tracker.models;
 
 import java.util.ArrayList;
 import java.util.Date;
