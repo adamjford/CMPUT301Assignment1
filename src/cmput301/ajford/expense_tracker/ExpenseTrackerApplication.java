@@ -8,7 +8,8 @@ import android.app.Application;
 /**
  * @author Adam
  *
- * Based on examples 
+ * Based on https://github.com/abramhindle/FillerCreepForAndroid/blob/master/src/es/softwareprocess/fillercreep/FillerCreepApplication.java
+ * from 2015-01-31
  */
 public class ExpenseTrackerApplication extends Application {
 
