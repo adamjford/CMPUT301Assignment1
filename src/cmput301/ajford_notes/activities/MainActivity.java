@@ -1,5 +1,9 @@
-package cmput301.ajford_notes;
+package cmput301.ajford_notes.activities;
 
+import cmput301.ajford_notes.R;
+import cmput301.ajford_notes.R.id;
+import cmput301.ajford_notes.R.layout;
+import cmput301.ajford_notes.R.menu;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
