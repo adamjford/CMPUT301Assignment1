@@ -13,12 +13,21 @@ import java.util.Date;
 public class TravelClaim {
 	public TravelClaim() {
 		expenseItems = new ArrayList<ExpenseItem>();
+		status = Status.IN_PROGRESS;
+	}
+	
+	enum Status {
+		IN_PROGRESS,
+		SUBMITTED,
+		RETURNED,
+		APPROVED
 	}
 	
 	private ArrayList<ExpenseItem> expenseItems;
 	private Date startDate;
 	private Date endDate;
 	private String description;
+	private Status status;
 
 	public ArrayList<ExpenseItem> getExpenseItems() {
 		return expenseItems;
@@ -50,6 +59,18 @@ public class TravelClaim {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
+	public boolean IsEditable() {
+		return status == Status.IN_PROGRESS || status == Status.RETURNED;
 	}
 }
 
