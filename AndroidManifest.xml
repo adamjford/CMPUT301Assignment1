@@ -9,19 +9,25 @@
         android:targetSdkVersion="17" />
 
     <application
-        android:name="ExpenseTrackerApplication"
+        android:name=".ExpenseTrackerApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="cmput301.ajford.expense_tracker.activities.MainActivity"
-            android:label="@string/app_name" >
+            android:name="cmput301.ajford.expense_tracker.activities.TravelClaimListActivity"
+            android:label="@string/title_travelclaim_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="cmput301.ajford.expense_tracker.activities.TravelClaimDetailActivity"
+            android:label="@string/title_travelclaim_detail">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cmput301.ajford.expense_tracker.TravelClaimListActivity" />
         </activity>
     </application>
 
