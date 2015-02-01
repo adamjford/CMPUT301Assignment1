@@ -1,12 +1,10 @@
 package cmput301.ajford.expense_tracker.activities;
 
 import cmput301.ajford.expense_tracker.R;
-import cmput301.ajford.expense_tracker.R.id;
-import cmput301.ajford.expense_tracker.R.layout;
-import cmput301.ajford.expense_tracker.models.TravelClaimsListManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.app.Activity;
 
 /**
@@ -39,7 +37,7 @@ public class TravelClaimListActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_travelclaim_list);
 
-		if (findViewById(R.id.travelclaim_detail_container) != null) {
+		if (findViewById(R.id.travelclaim_new_container) != null) {
 			// The detail container view will be present only in the
 			// large-screen layouts (res/values-large and
 			// res/values-sw600dp). If this view is present, then the
@@ -70,7 +68,7 @@ public class TravelClaimListActivity extends Activity implements
 			TravelClaimDetailFragment fragment = new TravelClaimDetailFragment();
 			fragment.setArguments(arguments);
 			getFragmentManager().beginTransaction()
-					.replace(R.id.travelclaim_detail_container, fragment)
+					.replace(R.id.travelclaim_new_container, fragment)
 					.commit();
 
 		} else {
@@ -87,5 +85,9 @@ public class TravelClaimListActivity extends Activity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	public void newTravelClaim(MenuItem menuItem) {
+		
 	}
 }

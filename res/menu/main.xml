@@ -3,6 +3,6 @@
     tools:context="cmput301.ajford_notes.MainActivity" >
 
     
-    <item android:id="@+id/newTravelClaim" android:title="@string/newTravelClaim" android:visible="true" android:enabled="true" android:showAsAction="ifRoom" android:titleCondensed="+" android:icon="@drawable/ic_action_new"></item><item android:id="@+id/action_settings" android:orderInCategory="100" android:showAsAction="never" android:title="@string/action_settings" />
+    <item android:id="@+id/newTravelClaim" android:title="@string/newTravelClaim" android:visible="true" android:enabled="true" android:showAsAction="ifRoom" android:titleCondensed="+" android:icon="@drawable/ic_action_new" android:onClick="newTravelClaim"></item><item android:id="@+id/action_settings" android:orderInCategory="100" android:showAsAction="never" android:title="@string/action_settings" />
 
 </menu>

@@ -4,9 +4,6 @@
 package cmput301.ajford.expense_tracker.models;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import cmput301.ajford.expense_tracker.framework.*;
 
 /**

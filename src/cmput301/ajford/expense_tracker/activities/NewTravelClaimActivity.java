@@ -11,7 +11,7 @@ import android.app.Activity;
 import android.view.MenuItem;
 
 /**
- * An activity representing a single Travel Claim detail screen. This activity
+ * An activity representing a new Travel Claim being created. This activity
  * is only used on handset devices. On tablet-size devices, item details are
  * presented side-by-side with a list of items in a
  * {@link TravelClaimListActivity}.
@@ -19,12 +19,12 @@ import android.view.MenuItem;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link TravelClaimDetailFragment}.
  */
-public class TravelClaimDetailActivity extends Activity {
+public class NewTravelClaimActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_travelclaim_detail);
+		setContentView(R.layout.activity_travelclaim_new);
 		TravelClaimsListManager.initializeManager(getApplicationContext());
 
 		// Show the Up button in the action bar.
