@@ -4,6 +4,7 @@
 package cmput301.ajford.expense_tracker.models;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -29,7 +30,7 @@ public class TravelClaim {
 	private String description;
 	private Status status;
 
-	public ArrayList<ExpenseItem> getExpenseItems() {
+	public Collection<ExpenseItem> getExpenseItems() {
 		return expenseItems;
 	}
 	
