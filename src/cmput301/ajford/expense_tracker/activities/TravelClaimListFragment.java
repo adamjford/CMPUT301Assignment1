@@ -3,10 +3,13 @@ package cmput301.ajford.expense_tracker.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.ListFragment;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import cmput301.ajford.expense_tracker.R;
 import cmput301.ajford.expense_tracker.TravelClaimsController;
 import cmput301.ajford.expense_tracker.dummy.DummyContent;
 import cmput301.ajford.expense_tracker.models.TravelClaim;
@@ -79,6 +82,7 @@ public class TravelClaimListFragment extends ListFragment {
 				android.R.id.text1, TravelClaimsController.getTravelClaimsList().getAll());
 
 		setListAdapter(adapter);
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -154,4 +158,12 @@ public class TravelClaimListFragment extends ListFragment {
 
 		mActivatedPosition = position;
 	}
+	
+	// Source: http://stackoverflow.com/a/15654039/14064 (2015-02-01)
+	/*@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.main, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+	*/
 }

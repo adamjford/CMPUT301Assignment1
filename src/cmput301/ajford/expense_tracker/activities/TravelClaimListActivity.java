@@ -6,6 +6,7 @@ import cmput301.ajford.expense_tracker.R.layout;
 import cmput301.ajford.expense_tracker.models.TravelClaimsListManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.app.Activity;
 
 /**
@@ -80,5 +81,11 @@ public class TravelClaimListActivity extends Activity implements
 			detailIntent.putExtra(TravelClaimDetailFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);
 		}
+    }
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
 	}
 }

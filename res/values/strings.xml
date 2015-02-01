@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_travelclaim_list">Travel Claims</string>
     <string name="title_travelclaim_detail">Travel Claim Detail</string>
+    <string name="newTravelClaim">New Travel Claim</string>
 
 </resources>
