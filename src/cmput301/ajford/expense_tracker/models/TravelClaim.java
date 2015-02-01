@@ -34,7 +34,7 @@ public class TravelClaim {
 		return expenseItems;
 	}
 	
-	public void AddExpenseItem(ExpenseItem item) {
+	public void addExpenseItem(ExpenseItem item) {
 		expenseItems.add(item);
 	}
 

@@ -3,6 +3,7 @@ package cmput301.ajford.expense_tracker.activities;
 import cmput301.ajford.expense_tracker.R;
 import cmput301.ajford.expense_tracker.R.id;
 import cmput301.ajford.expense_tracker.R.layout;
+import cmput301.ajford.expense_tracker.models.TravelClaimsListManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;

@@ -7,7 +7,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import cmput301.ajford.expense_tracker.TravelClaimsController;
 import cmput301.ajford.expense_tracker.dummy.DummyContent;
+import cmput301.ajford.expense_tracker.models.TravelClaim;
+import cmput301.ajford.expense_tracker.models.TravelClaimsListManager;
 
 /**
  * A list fragment representing a list of Travel Claims. This fragment also
@@ -69,11 +72,13 @@ public class TravelClaimListFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		// TODO: replace with a real list adapter.
-		setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
+		TravelClaimsListManager.initializeManager(getActivity());
+		
+		ArrayAdapter<TravelClaim> adapter = new ArrayAdapter<TravelClaim>(getActivity(),
 				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, DummyContent.ITEMS));
+				android.R.id.text1, TravelClaimsController.getTravelClaimsList().getAll());
+
+		setListAdapter(adapter);
 	}
 
 	@Override
