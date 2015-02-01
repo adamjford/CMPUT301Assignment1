@@ -47,7 +47,7 @@ public class NewTravelClaimActivity extends Activity {
 					TravelClaimDetailFragment.ARG_ITEM_ID,
 					getIntent().getStringExtra(
 							TravelClaimDetailFragment.ARG_ITEM_ID));
-			TravelClaimDetailFragment fragment = new TravelClaimDetailFragment();
+			NewTravelClaimFragment fragment = new NewTravelClaimFragment();
 			fragment.setArguments(arguments);
 			getFragmentManager().beginTransaction()
 					.add(R.id.travelclaim_new_container, fragment).commit();

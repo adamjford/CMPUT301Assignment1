@@ -29,6 +29,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cmput301.ajford.expense_tracker.TravelClaimListActivity" />
         </activity>
+        <activity
+            android:name="cmput301.ajford.expense_tracker.activities.NewTravelClaimActivity"
+            android:label="@string/newTravelClaim">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cmput301.ajford.expense_tracker.TravelClaimListActivity" />
+        </activity>
     </application>
-
 </manifest>

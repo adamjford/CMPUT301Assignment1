@@ -87,7 +87,9 @@ public class TravelClaimListActivity extends Activity implements
 		return true;
 	}
 	
+	// source: https://www.youtube.com/watch?v=fxjIA4HIruU (2015-02-01)
 	public void newTravelClaim(MenuItem menuItem) {
-		
+		Intent intent = new Intent(TravelClaimListActivity.this, NewTravelClaimActivity.class);
+		startActivity(intent);
 	}
 }
