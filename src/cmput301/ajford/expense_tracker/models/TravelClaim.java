@@ -17,17 +17,22 @@ import android.os.Parcelable;
  *
  */
 public class TravelClaim {
+	private transient static final String IN_PROGRESS = "In Progress";
+	private transient static final String SUBMITTED = "Submitted";
+	private transient static final String RETURNED = "Returned";
+	private transient static final String APPROVED = "Approved";
+	
+	private transient static final ArrayList<String> allStatuses = new ArrayList<String>() {{
+		add(IN_PROGRESS);
+		add(SUBMITTED);
+		add(RETURNED);
+		add(APPROVED);
+	}};
+	
 	public TravelClaim() {
 		id = UUID.randomUUID();
-		status = Status.IN_PROGRESS;
+		status = IN_PROGRESS;
 		expenseItems = new ArrayList<ExpenseItem>();
-	}
-	
-	public enum Status {
-		IN_PROGRESS,
-		SUBMITTED,
-		RETURNED,
-		APPROVED
 	}
 	
 	private UUID id;
@@ -35,7 +40,7 @@ public class TravelClaim {
 	private Date startDate;
 	private Date endDate;
 	private String description;
-	private Status status;
+	private String status;
 	
 	public UUID getID() {
 		return id;
@@ -73,16 +78,16 @@ public class TravelClaim {
 		this.description = description;
 	}
 
-	public Status getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	
 	public boolean isEditable() {
-		return status == Status.IN_PROGRESS || status == Status.RETURNED;
+		return status == IN_PROGRESS || status == RETURNED;
 	}
 	
 	@Override
