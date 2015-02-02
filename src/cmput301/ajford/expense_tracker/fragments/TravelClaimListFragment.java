@@ -1,4 +1,4 @@
-package cmput301.ajford.expense_tracker.activities;
+package cmput301.ajford.expense_tracker.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;

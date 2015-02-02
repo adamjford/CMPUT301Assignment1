@@ -7,5 +7,8 @@
     <string name="title_travelclaim_list">Travel Claims</string>
     <string name="title_travelclaim_detail">Travel Claim Detail</string>
     <string name="newTravelClaim">New Travel Claim</string>
+    <string name="hint_start_date">Start Date</string>
+    <string name="hint_end_date">End Date</string>
+    <string name="hint_description">Description (e.g, destination and reason for travel)</string>
 
 </resources>

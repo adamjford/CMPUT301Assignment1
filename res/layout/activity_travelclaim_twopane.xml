@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/travelclaim_list"
-        android:name="cmput301.ajford.expense_tracker.activities.TravelClaimListFragment"
+        android:name="cmput301.ajford.expense_tracker.fragments.TravelClaimListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

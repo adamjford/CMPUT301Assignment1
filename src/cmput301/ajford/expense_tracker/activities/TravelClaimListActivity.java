@@ -1,6 +1,8 @@
 package cmput301.ajford.expense_tracker.activities;
 
 import cmput301.ajford.expense_tracker.R;
+import cmput301.ajford.expense_tracker.fragments.TravelClaimDetailFragment;
+import cmput301.ajford.expense_tracker.fragments.TravelClaimListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;

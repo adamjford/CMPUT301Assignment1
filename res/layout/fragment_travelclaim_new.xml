@@ -1,4 +1,4 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/travelclaim_new"
     style="?android:attr/textAppearanceLarge"
@@ -6,5 +6,41 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:textIsSelectable="true"
-    tools:context="cmput301.ajford.expense_tracker.activities.NewTravelClaimFragment" />
+    tools:context="cmput301.ajford.expense_tracker.fragments.NewTravelClaimFragment">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/startDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_start_date"
+                android:inputType="date" 
+                android:focusable="false"
+                android:onClick="showDatePickerDialog">
+
+                <requestFocus />
+            </EditText>
+            <EditText
+                android:id="@+id/endDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_end_date"
+                android:inputType="date" 
+                android:focusable="false"
+                android:onClick="showDatePickerDialog"/>
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_description"
+                android:inputType="textMultiLine" />
+        </LinearLayout>
+</ScrollView>
 

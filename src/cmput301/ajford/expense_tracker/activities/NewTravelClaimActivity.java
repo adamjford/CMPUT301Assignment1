@@ -1,14 +1,24 @@
 package cmput301.ajford.expense_tracker.activities;
 
+import java.util.Calendar;
+
 import cmput301.ajford.expense_tracker.R;
 import cmput301.ajford.expense_tracker.R.id;
 import cmput301.ajford.expense_tracker.R.layout;
+import cmput301.ajford.expense_tracker.fragments.DatePickerFragment;
+import cmput301.ajford.expense_tracker.fragments.NewTravelClaimFragment;
+import cmput301.ajford.expense_tracker.fragments.TravelClaimDetailFragment;
 import cmput301.ajford.expense_tracker.models.TravelClaimsListManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.DialogFragment;
 
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
 /**
  * An activity representing a new Travel Claim being created. This activity
@@ -68,5 +78,14 @@ public class NewTravelClaimActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	// Source: 	http://developer.android.com/guide/topics/ui/controls/pickers.html (2015-02-01)
+	// License: http://creativecommons.org/licenses/by/2.5/
+	public void showDatePickerDialog(View v) {
+		EditText dateField = (EditText) v;
+		
+		DialogFragment newFragment = new DatePickerFragment(dateField);
+		newFragment.show(getFragmentManager(), "datePicker");
 	}
 }
