@@ -1,46 +1,79 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/travelclaim_new"
     style="?android:attr/textAppearanceLarge"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context="cmput301.ajford.expense_tracker.fragments.NewTravelClaimFragment">
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:textIsSelectable="false"
+    tools:context="cmput301.ajford.expense_tracker.fragments.NewTravelClaimFragment" >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
+    <EditText
+        android:id="@+id/startDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="@string/hint_start_date"
+        android:inputType="date"
+        android:onClick="showDatePickerDialog" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/endDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="@string/hint_end_date"
+        android:inputType="date"
+        android:onClick="showDatePickerDialog" />
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_description"
+        android:inputType="textMultiLine" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="1" >
+
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="end|top"
+            android:layout_row="0"
+            android:contentDescription="@string/label_addExpenseClaim"
+            android:src="@drawable/ic_action_new" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_column="0"
+            android:layout_gravity="start|center_vertical"
+            android:layout_row="0"
+            android:text="@string/label_expenseItems" />
 
-            <EditText
-                android:id="@+id/startDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/hint_start_date"
-                android:inputType="date" 
-                android:focusable="false"
-                android:onClick="showDatePickerDialog">
+    </GridLayout>
 
-                <requestFocus />
-            </EditText>
-            <EditText
-                android:id="@+id/endDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/hint_end_date"
-                android:inputType="date" 
-                android:focusable="false"
-                android:onClick="showDatePickerDialog"/>
-            <EditText
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/hint_description"
-                android:inputType="textMultiLine" />
-        </LinearLayout>
-</ScrollView>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
+        <ListView
+            android:id="@+id/expenseItemsList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+        </ListView>
+    </LinearLayout>
+
+</LinearLayout>

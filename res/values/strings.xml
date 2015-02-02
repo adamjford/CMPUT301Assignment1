@@ -10,5 +10,7 @@
     <string name="hint_start_date">Start Date</string>
     <string name="hint_end_date">End Date</string>
     <string name="hint_description">Description (e.g, destination and reason for travel)</string>
+    <string name="label_expenseItems">Expense Items</string>
+    <string name="label_addExpenseClaim">Add Expense Claim</string>
 
 </resources>
