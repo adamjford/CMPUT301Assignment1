@@ -17,7 +17,7 @@
         <activity
             android:name=".activities.TravelClaimListActivity"
             android:label="@string/title_travelclaim_list" >
-            <intent-filter>
+            <intent-filter android:label="ajford-ExpenseTracker">
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
