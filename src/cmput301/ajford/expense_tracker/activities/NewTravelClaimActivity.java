@@ -11,7 +11,6 @@ import cmput301.ajford.expense_tracker.R.layout;
 import cmput301.ajford.expense_tracker.TravelClaimsController;
 import cmput301.ajford.expense_tracker.activities.NewExpenseItemDialogFragment.NewExpenseItemCreatedListener;
 import cmput301.ajford.expense_tracker.fragments.DatePickerFragment;
-import cmput301.ajford.expense_tracker.fragments.TravelClaimDetailFragment;
 import cmput301.ajford.expense_tracker.models.ExpenseItem;
 import cmput301.ajford.expense_tracker.models.TravelClaim;
 import cmput301.ajford.expense_tracker.models.TravelClaimsListManager;

@@ -3,9 +3,13 @@
  */
 package cmput301.ajford.expense_tracker.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * @author Adam
@@ -70,8 +74,13 @@ public class TravelClaim {
 		this.status = status;
 	}
 	
-	public boolean IsEditable() {
+	public boolean isEditable() {
 		return status == Status.IN_PROGRESS || status == Status.RETURNED;
+	}
+	
+	@Override
+	public String toString() {
+		return getDescription() + " - " + getStatus();
 	}
 }
 

@@ -1,13 +1,25 @@
 package cmput301.ajford.expense_tracker.activities;
 
-import cmput301.ajford.expense_tracker.R;
-import cmput301.ajford.expense_tracker.fragments.TravelClaimDetailFragment;
-import cmput301.ajford.expense_tracker.fragments.TravelClaimListFragment;
+import java.util.ArrayList;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.app.Activity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import cmput301.ajford.expense_tracker.R;
+import cmput301.ajford.expense_tracker.TravelClaimsController;
+import cmput301.ajford.expense_tracker.framework.FView;
+import cmput301.ajford.expense_tracker.models.TravelClaim;
+import cmput301.ajford.expense_tracker.models.TravelClaimsList;
+import cmput301.ajford.expense_tracker.models.TravelClaimsListManager;
+
+import com.google.gson.Gson;
 
 /**
  * An activity representing a list of Travel Claims. This activity has different
@@ -25,8 +37,9 @@ import android.app.Activity;
  * {@link TravelClaimListFragment.Callbacks} interface to listen for item
  * selections.
  */
-public class TravelClaimListActivity extends Activity implements
-		TravelClaimListFragment.Callbacks {
+public class TravelClaimListActivity 
+				extends Activity 
+				implements FView<TravelClaimsList> {
 
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -38,51 +51,28 @@ public class TravelClaimListActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_travelclaim_list);
+		TravelClaimsListManager.initializeManager(getApplicationContext());
+		
+		ListView listView = (ListView) findViewById(R.id.travel_claims_list);
+		ArrayAdapter<TravelClaim> adapter = new ArrayAdapter<TravelClaim>(this,
+				android.R.layout.simple_list_item_activated_1,
+				android.R.id.text1, TravelClaimsController.getTravelClaimsList().getAll());
+		listView.setAdapter(adapter);
+		
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> myAdapter, View myView, int position, long id) {
+				ArrayList<TravelClaim> travelClaims = TravelClaimsController.getTravelClaimsList().getAll();
+				TravelClaim claim = travelClaims.get(position);
+                Gson gson = new Gson();
+                Intent detailIntent = new Intent(TravelClaimListActivity.this, TravelClaimDetailActivity.class);
 
-		if (findViewById(R.id.travelclaim_new_container) != null) {
-			// The detail container view will be present only in the
-			// large-screen layouts (res/values-large and
-			// res/values-sw600dp). If this view is present, then the
-			// activity should be in two-pane mode.
-			mTwoPane = true;
-
-			// In two-pane mode, list items should be given the
-			// 'activated' state when touched.
-			((TravelClaimListFragment) getFragmentManager().findFragmentById(
-					R.id.travelclaim_list)).setActivateOnItemClick(true);
-		}
-
-		// TODO: If exposing deep links into your app, handle intents here.
+                detailIntent.putExtra(TravelClaimDetailActivity.TravelClaimArgumentID, gson.toJson(claim, TravelClaim.class));
+                startActivity(detailIntent);
+            }
+		});
 	}
 
-	/**
-	 * Callback method from {@link TravelClaimListFragment.Callbacks} indicating
-	 * that the item with the given ID was selected.
-	 */
-	@Override
-	public void onItemSelected(String id) {
-		if (mTwoPane) {
-			// In two-pane mode, show the detail view in this activity by
-			// adding or replacing the detail fragment using a
-			// fragment transaction.
-			Bundle arguments = new Bundle();
-			arguments.putString(TravelClaimDetailFragment.ARG_ITEM_ID, id);
-			TravelClaimDetailFragment fragment = new TravelClaimDetailFragment();
-			fragment.setArguments(arguments);
-			getFragmentManager().beginTransaction()
-					.replace(R.id.travelclaim_new_container, fragment)
-					.commit();
-
-		} else {
-			// In single-pane mode, simply start the detail activity
-			// for the selected item ID.
-			Intent detailIntent = new Intent(this,
-					TravelClaimDetailActivity.class);
-			detailIntent.putExtra(TravelClaimDetailFragment.ARG_ITEM_ID, id);
-			startActivity(detailIntent);
-		}
-    }
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
@@ -93,5 +83,11 @@ public class TravelClaimListActivity extends Activity implements
 	public void newTravelClaim(MenuItem menuItem) {
 		Intent intent = new Intent(TravelClaimListActivity.this, NewTravelClaimActivity.class);
 		startActivity(intent);
+	}
+
+	@Override
+	public void update(TravelClaimsList Model) {
+		// TODO Auto-generated method stub
+		
 	}
 }
