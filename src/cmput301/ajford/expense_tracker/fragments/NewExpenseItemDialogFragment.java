@@ -1,9 +1,10 @@
-package cmput301.ajford.expense_tracker.activities;
+package cmput301.ajford.expense_tracker.fragments;
 
 import cmput301.ajford.expense_tracker.R;
 import cmput301.ajford.expense_tracker.R.id;
 import cmput301.ajford.expense_tracker.R.layout;
 import cmput301.ajford.expense_tracker.R.menu;
+import cmput301.ajford.expense_tracker.input_filters.MoneyValueFilter;
 import cmput301.ajford.expense_tracker.models.ExpenseItem;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
@@ -58,13 +60,25 @@ public class NewExpenseItemDialogFragment extends DialogFragment {
 			});
 		
 		Spinner categorySpinner = (Spinner) view.findViewById(R.id.categorySpinner);
-		SpinnerAdapter spinnerAdapter = new ArrayAdapter<String>(
+		SpinnerAdapter categoryAdapter = new ArrayAdapter<String>(
 				getActivity(), 
 				android.R.layout.simple_list_item_activated_1,
 				android.R.id.text1, 
 				ExpenseItem.getValidCategories());
 		
-		categorySpinner.setAdapter(spinnerAdapter);
+		categorySpinner.setAdapter(categoryAdapter);
+
+		Spinner currencySpinner = (Spinner) view.findViewById(R.id.currency_spinner);
+		SpinnerAdapter currencyAdapter = new ArrayAdapter<String>(
+				getActivity(), 
+				android.R.layout.simple_list_item_activated_1,
+				android.R.id.text1, 
+				ExpenseItem.getValidCurrencies());
+		
+		currencySpinner.setAdapter(currencyAdapter);
+		
+		EditText currencyField = (EditText) view.findViewById(R.id.amount_spent);
+		currencyField.setKeyListener(new MoneyValueFilter());
 		
 		return builder.create();
 	}

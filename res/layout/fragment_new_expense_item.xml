@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal"
-    tools:context="cmput301.ajford.expense_tracker.activities.NewExpenseItemDialogFragment" >
+    tools:context="cmput301.ajford.expense_tracker.fragments.NewExpenseItemDialogFragment" >
 
     <EditText
         android:id="@+id/travel_claim_description"
@@ -37,7 +37,7 @@
         android:prompt="@string/label_category" />
 
     <EditText
-        android:id="@+id/expense_item_amount_spent"
+        android:id="@+id/amount_spent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -46,11 +46,11 @@
         android:inputType="numberDecimal" />
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/currency_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/expense_item_amount_spent"
-        android:layout_alignTop="@+id/expense_item_amount_spent"
-        android:layout_toRightOf="@+id/expense_item_amount_spent" />
+        android:layout_alignBottom="@+id/amount_spent"
+        android:layout_alignTop="@+id/amount_spent"
+        android:layout_toRightOf="@+id/amount_spent" />
 
 </RelativeLayout>

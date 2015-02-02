@@ -16,8 +16,19 @@ public class ExpenseItem {
 		add("Meal");
 	}};
 	
+	private transient static final ArrayList<String> validCurrencies = new ArrayList<String>() {{
+		add("CAD");
+		add("USD");
+		add("EUR");
+		add("GBP");
+	}};
+	
 	public static ArrayList<String> getValidCategories() {
 		return validCategories;
+	}
+
+	public static ArrayList<String> getValidCurrencies() {
+		return validCurrencies;
 	}
 	
 	private Date date;
