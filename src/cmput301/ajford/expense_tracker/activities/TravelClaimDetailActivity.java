@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.UUID;
 
@@ -188,8 +190,18 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase
 	}
 
 	private void setExpenseItemAdapter(ListView expenseItemList) {
-		ExpenseItemListAdapter adapter = new ExpenseItemListAdapter(this,
-				travelClaim.getExpenseItems());
+		ArrayList<ExpenseItem> expenseItems = travelClaim.getExpenseItems();
+		
+		// Source: http://stackoverflow.com/a/18441978/14064 (2015-02-02)
+		Collections.sort(expenseItems, new Comparator<ExpenseItem>() {
+			@Override
+			public int compare(ExpenseItem item1, ExpenseItem item2)
+			{
+				return item1.getDate().compareTo(item2.getDate());
+			}
+		});
+		
+		ExpenseItemListAdapter adapter = new ExpenseItemListAdapter(this, expenseItems);
 		expenseItemList.setAdapter(adapter);
 	}
 }
