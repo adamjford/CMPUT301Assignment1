@@ -4,14 +4,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 import com.google.gson.Gson;
 
 import cmput301.ajford.expense_tracker.R;
+import cmput301.ajford.expense_tracker.TravelClaimsController;
 import cmput301.ajford.expense_tracker.R.id;
 import cmput301.ajford.expense_tracker.R.layout;
 import cmput301.ajford.expense_tracker.fragments.DatePickerFragment;
+import cmput301.ajford.expense_tracker.framework.FView;
 import cmput301.ajford.expense_tracker.models.TravelClaim;
+import cmput301.ajford.expense_tracker.models.TravelClaimsList;
 import cmput301.ajford.expense_tracker.models.TravelClaimsListManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +33,7 @@ import android.widget.EditText;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link TravelClaimDetailFragment}.
  */
-public class TravelClaimDetailActivity extends Activity {
+public class TravelClaimDetailActivity extends TravelClaimActivityBase {
 
 	public static final String TravelClaimArgumentID = "TravelClaim";
 	
@@ -44,12 +48,22 @@ public class TravelClaimDetailActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		Intent intent = getIntent();
-		String travelClaimJson = intent.getExtras().getString(TravelClaimArgumentID);
-		travelClaim = (new Gson()).fromJson(travelClaimJson, TravelClaim.class);
+		UUID id = (UUID) intent.getExtras().getSerializable(TravelClaimArgumentID);
+		travelClaim = TravelClaimsController.getTravelClaimByID(id);
 		
 		if (travelClaim.isEditable()) {
 			initializeEditMode();
 		}
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		travelClaim.setDescription(getDescription());
+		travelClaim.setStartDate(getStartDateValue());
+		travelClaim.setEndDate(getEndDateValue());
+		TravelClaimsController.updatePerformed();
+		TravelClaimsController.persistStudentList();
 	}
 
 	public void initializeEditMode() {

@@ -41,12 +41,6 @@ public class TravelClaimListActivity
 				extends Activity 
 				implements FView<TravelClaimsList> {
 
-	/**
-	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-	 * device.
-	 */
-	private boolean mTwoPane;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,10 +52,9 @@ public class TravelClaimListActivity
 			public void onItemClick(AdapterView<?> myAdapter, View myView, int position, long id) {
 				ArrayList<TravelClaim> travelClaims = TravelClaimsController.getTravelClaimsList().getAll();
 				TravelClaim claim = travelClaims.get(position);
-                Gson gson = new Gson();
-                Intent detailIntent = new Intent(TravelClaimListActivity.this, TravelClaimDetailActivity.class);
 
-                detailIntent.putExtra(TravelClaimDetailActivity.TravelClaimArgumentID, gson.toJson(claim, TravelClaim.class));
+                Intent detailIntent = new Intent(TravelClaimListActivity.this, TravelClaimDetailActivity.class);
+                detailIntent.putExtra(TravelClaimDetailActivity.TravelClaimArgumentID, claim.getID());
                 startActivity(detailIntent);
             }
 		});
@@ -71,12 +64,8 @@ public class TravelClaimListActivity
 	protected void onStart() {
 		super.onStart();
 		TravelClaimsListManager.initializeManager(getApplicationContext());
+		update(TravelClaimsController.getTravelClaimsList());
 		
-		ListView listView = (ListView) findViewById(R.id.travel_claims_list);
-		ArrayAdapter<TravelClaim> adapter = new ArrayAdapter<TravelClaim>(this,
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, TravelClaimsController.getTravelClaimsList().getAll());
-		listView.setAdapter(adapter);
 	}
 
 	@Override
@@ -92,8 +81,11 @@ public class TravelClaimListActivity
 	}
 
 	@Override
-	public void update(TravelClaimsList Model) {
-		// TODO Auto-generated method stub
-		
+	public void update(TravelClaimsList model) {
+		ListView listView = (ListView) findViewById(R.id.travel_claims_list);
+		ArrayAdapter<TravelClaim> adapter = new ArrayAdapter<TravelClaim>(this,
+				android.R.layout.simple_list_item_activated_1,
+				android.R.id.text1, model.getAll());
+		listView.setAdapter(adapter);
 	}
 }

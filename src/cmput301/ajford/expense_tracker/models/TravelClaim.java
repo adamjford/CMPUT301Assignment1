@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.UUID;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -17,8 +18,9 @@ import android.os.Parcelable;
  */
 public class TravelClaim {
 	public TravelClaim() {
-		expenseItems = new ArrayList<ExpenseItem>();
+		id = UUID.randomUUID();
 		status = Status.IN_PROGRESS;
+		expenseItems = new ArrayList<ExpenseItem>();
 	}
 	
 	public enum Status {
@@ -28,11 +30,16 @@ public class TravelClaim {
 		APPROVED
 	}
 	
+	private UUID id;
 	private ArrayList<ExpenseItem> expenseItems;
 	private Date startDate;
 	private Date endDate;
 	private String description;
 	private Status status;
+	
+	public UUID getID() {
+		return id;
+	}
 
 	public Collection<ExpenseItem> getExpenseItems() {
 		return expenseItems;
@@ -81,6 +88,13 @@ public class TravelClaim {
 	@Override
 	public String toString() {
 		return getDescription() + " - " + getStatus();
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		return other != null 
+				&& other.getClass().equals(this.getClass()) 
+				&& ((TravelClaim)other).getID() == getID();
 	}
 }
 

@@ -4,6 +4,8 @@
 package cmput301.ajford.expense_tracker.models;
 
 import java.util.ArrayList;
+import java.util.UUID;
+
 import cmput301.ajford.expense_tracker.framework.*;
 
 /**
@@ -23,6 +25,13 @@ public class TravelClaimsList extends FModel<FView> {
 	
 	public ArrayList<TravelClaim> getAll() {
 		return travelClaims;
+	}
+	
+	public TravelClaim getByID(UUID id) {
+		for(TravelClaim claim : travelClaims) {
+			if(claim.getID().equals(id)) return claim;
+		}
+		return null;
 	}
 	
 	public void add(TravelClaim travelClaim) {

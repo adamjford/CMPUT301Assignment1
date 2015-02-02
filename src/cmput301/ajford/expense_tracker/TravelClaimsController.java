@@ -3,6 +3,9 @@
  */
 package cmput301.ajford.expense_tracker;
 
+import java.util.UUID;
+
+import cmput301.ajford.expense_tracker.models.TravelClaim;
 import cmput301.ajford.expense_tracker.models.TravelClaimsList;
 import cmput301.ajford.expense_tracker.models.TravelClaimsListManager;
 
@@ -22,7 +25,15 @@ public class TravelClaimsController {
 		return travelClaimsList;
 	}
 	
-	public static void saveStudentList() {
+	public static void persistStudentList() {
         TravelClaimsListManager.getManager().saveTravelClaims(travelClaimsList);
+	}
+	
+	public static void updatePerformed() {
+		getTravelClaimsList().childUpdatePerformed();
+	}
+	
+	public static TravelClaim getTravelClaimByID(UUID id) {
+		return getTravelClaimsList().getByID(id);
 	}
 }

@@ -36,7 +36,7 @@ import android.widget.Toast;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link TravelClaimDetailFragment}.
  */
-public class NewTravelClaimActivity extends Activity implements NewExpenseItemCreatedListener {
+public class NewTravelClaimActivity extends TravelClaimActivityBase implements NewExpenseItemCreatedListener {
 	private TravelClaim travelClaim;
 
 	@Override
@@ -90,7 +90,7 @@ public class NewTravelClaimActivity extends Activity implements NewExpenseItemCr
 	public void saveTravelClaim(MenuItem menuItem) {
 		Date startDate = getStartDateValue();
 		Date endDate = getEndDateValue();
-		String description = ((EditText) findViewById(R.id.travel_claim_description)).getEditableText().toString();
+		String description = getDescription();
 		
 		if(startDate == null || endDate == null || description == null || description == "") {
 			Toast.makeText(this, "Invalid values.", Toast.LENGTH_SHORT).show();
@@ -101,34 +101,10 @@ public class NewTravelClaimActivity extends Activity implements NewExpenseItemCr
 			travelClaim.setDescription(description);
 			
 			TravelClaimsController.getTravelClaimsList().add(travelClaim);
-			TravelClaimsController.saveStudentList();
+			TravelClaimsController.persistStudentList();
 
 			navigateUpTo(new Intent(this, TravelClaimListActivity.class));
 		}
-	}
-	
-	private Date getStartDateValue() {
-		return getDateValue((EditText) findViewById(R.id.startDate));
-	}
-
-	private Date getEndDateValue() {
-		return getDateValue((EditText) findViewById(R.id.endDate));
-	}
-	
-	private Date getDateValue(EditText dateField) {
-		final Calendar c = Calendar.getInstance();
-		Date date;
-
-        SimpleDateFormat format = new SimpleDateFormat(DatePickerFragment.dateFormat);
-        
-        try {
-        	c.setTime(format.parse(dateField.getEditableText().toString()));
-        	date = c.getTime();
-        } catch (ParseException e) {
-        	date = null;
-        }
-        
-        return date;
 	}
 
 	@Override
