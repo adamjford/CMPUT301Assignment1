@@ -51,14 +51,8 @@ public class TravelClaimListActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_travelclaim_list);
-		TravelClaimsListManager.initializeManager(getApplicationContext());
 		
 		ListView listView = (ListView) findViewById(R.id.travel_claims_list);
-		ArrayAdapter<TravelClaim> adapter = new ArrayAdapter<TravelClaim>(this,
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, TravelClaimsController.getTravelClaimsList().getAll());
-		listView.setAdapter(adapter);
-		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> myAdapter, View myView, int position, long id) {
@@ -71,6 +65,18 @@ public class TravelClaimListActivity
                 startActivity(detailIntent);
             }
 		});
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		TravelClaimsListManager.initializeManager(getApplicationContext());
+		
+		ListView listView = (ListView) findViewById(R.id.travel_claims_list);
+		ArrayAdapter<TravelClaim> adapter = new ArrayAdapter<TravelClaim>(this,
+				android.R.layout.simple_list_item_activated_1,
+				android.R.id.text1, TravelClaimsController.getTravelClaimsList().getAll());
+		listView.setAdapter(adapter);
 	}
 
 	@Override
