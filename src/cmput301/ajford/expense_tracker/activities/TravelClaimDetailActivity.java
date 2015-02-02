@@ -1,10 +1,16 @@
 package cmput301.ajford.expense_tracker.activities;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import com.google.gson.Gson;
 
 import cmput301.ajford.expense_tracker.R;
 import cmput301.ajford.expense_tracker.R.id;
 import cmput301.ajford.expense_tracker.R.layout;
+import cmput301.ajford.expense_tracker.fragments.DatePickerFragment;
 import cmput301.ajford.expense_tracker.models.TravelClaim;
 import cmput301.ajford.expense_tracker.models.TravelClaimsListManager;
 import android.content.Intent;
@@ -12,6 +18,7 @@ import android.os.Bundle;
 import android.app.Activity;
 
 import android.view.MenuItem;
+import android.widget.EditText;
 
 /**
  * An activity representing a single Travel Claim detail screen. This activity
@@ -47,8 +54,30 @@ public class TravelClaimDetailActivity extends Activity {
 
 	public void initializeEditMode() {
 		setContentView(R.layout.activity_travelclaim_edit);
+		
+		setStartDateValue();
+		setEndDateValue();
+		setDescription();
+	}
+	
+	private void setDescription() {
+		EditText descriptionField = (EditText) findViewById(R.id.travel_claim_description);
+		descriptionField.setText(travelClaim.getDescription());
 	}
 
+	private void setStartDateValue() {
+		setDateValue(travelClaim.getStartDate(), (EditText) findViewById(R.id.startDate));
+	}
+
+	private void setEndDateValue() {
+		setDateValue(travelClaim.getEndDate(), (EditText) findViewById(R.id.endDate));
+	}
+	
+	private void setDateValue(Date date, EditText dateField) {
+        SimpleDateFormat format = new SimpleDateFormat(DatePickerFragment.dateFormat);
+        
+        dateField.setText(format.format(date));
+	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
