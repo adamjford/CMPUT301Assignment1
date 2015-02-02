@@ -15,26 +15,36 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="cmput301.ajford.expense_tracker.activities.TravelClaimListActivity"
+            android:name=".activities.TravelClaimListActivity"
             android:label="@string/title_travelclaim_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="cmput301.ajford.expense_tracker.activities.TravelClaimDetailActivity"
-            android:label="@string/title_travelclaim_detail">
+            android:name=".activities.TravelClaimDetailActivity"
+            android:label="@string/title_travelclaim_detail" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cmput301.ajford.expense_tracker.TravelClaimListActivity" />
         </activity>
         <activity
-            android:name="cmput301.ajford.expense_tracker.activities.NewTravelClaimActivity"
-            android:label="@string/newTravelClaim">
+            android:name=".activities.NewTravelClaimActivity"
+            android:label="@string/newTravelClaim" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cmput301.ajford.expense_tracker.TravelClaimListActivity" />
         </activity>
+        <activity
+            android:name="cmput301.ajford.expense_tracker.activities.NewExpenseItemDialogFragment"
+            android:label="@string/title_activity_new_expense_item"
+            android:parentActivityName=".activities.NewTravelClaimActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cmput301.ajford.expense_tracker.activities.NewTravelClaimActivity" />
+        </activity>
     </application>
+
 </manifest>

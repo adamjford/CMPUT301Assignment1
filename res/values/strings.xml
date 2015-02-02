@@ -12,5 +12,11 @@
     <string name="hint_description">Description (e.g, destination and reason for travel)</string>
     <string name="label_expenseItems">Expense Items</string>
     <string name="label_addExpenseClaim">Add Expense Claim</string>
+    <string name="title_activity_new_expense_item">New Expense Item</string>
+    <string name="label_expense_item_date">Date</string>
+    <string name="label_category">Category</string>
+    <string name="hint_expense_item_description">Description</string>
+    <string name="title_save">Save</string>
+    <string name="title_cancel">Cancel</string>
 
 </resources>

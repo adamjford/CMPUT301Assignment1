@@ -19,7 +19,7 @@ public class DatePickerFragment extends DialogFragment
                             implements DatePickerDialog.OnDateSetListener {
 	
 	EditText dateField;
-	private static final String dateFormat = "MM/dd/yy";
+	public static final String dateFormat = "MM/dd/yy";
 	
 	public DatePickerFragment(EditText dateField) {
 		this.dateField = dateField;

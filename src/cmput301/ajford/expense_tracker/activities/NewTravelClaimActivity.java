@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
@@ -80,6 +81,12 @@ public class NewTravelClaimActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.new_travel_claim, menu);
+		return true;
+	}
+	
 	// Source: 	http://developer.android.com/guide/topics/ui/controls/pickers.html (2015-02-01)
 	// License: http://creativecommons.org/licenses/by/2.5/
 	public void showDatePickerDialog(View v) {
@@ -87,5 +94,15 @@ public class NewTravelClaimActivity extends Activity {
 		
 		DialogFragment newFragment = new DatePickerFragment(dateField);
 		newFragment.show(getFragmentManager(), "datePicker");
+	}
+	
+	public void addNewExpenseItem(View view) {
+		NewExpenseItemDialogFragment dialog = new NewExpenseItemDialogFragment();
+		dialog.show(getFragmentManager(), "NewExpenseItemDialogFragment");
+	}
+	
+	public void saveTravelClaim(MenuItem menuItem) {
+		//Intent intent = new Intent(TravelClaimListActivity.this, NewTravelClaimActivity.class);
+		//startActivity(intent);
 	}
 }

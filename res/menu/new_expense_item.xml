@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="cmput301.ajford.expense_tracker.NewExpenseItemActivity" >
+
+    <item android:id="@+id/saveNewExpenseItem" android:title="@string/newTravelClaim" android:visible="true" android:enabled="true" android:showAsAction="ifRoom" android:titleCondensed="Save" android:icon="@drawable/ic_action_accept" android:onClick="saveExpenseItem"></item><item android:id="@+id/action_settings" android:orderInCategory="100" android:showAsAction="never" android:title="@string/action_settings" />
+
+</menu>
