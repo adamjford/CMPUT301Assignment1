@@ -1,6 +1,8 @@
 package cmput301.ajford.expense_tracker.activities;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -83,9 +85,21 @@ public class TravelClaimListActivity
 	@Override
 	public void update(TravelClaimsList model) {
 		ListView listView = (ListView) findViewById(R.id.travel_claims_list);
+		
+		ArrayList<TravelClaim> travelClaims = model.getAll();
+
+		// Source: http://stackoverflow.com/a/18441978/14064 (2015-02-02)
+		Collections.sort(travelClaims, new Comparator<TravelClaim>() {
+			@Override
+			public int compare(TravelClaim claim1, TravelClaim claim2)
+			{
+				return claim1.getStartDate().compareTo(claim2.getStartDate());
+			}
+		});
+		
 		ArrayAdapter<TravelClaim> adapter = new ArrayAdapter<TravelClaim>(this,
 				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, model.getAll());
+				android.R.id.text1, travelClaims);
 		listView.setAdapter(adapter);
 	}
 }
