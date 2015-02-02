@@ -19,7 +19,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/date"
+        android:id="@+id/date_expense_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/travel_claim_description"
@@ -36,11 +36,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="false"
         android:layout_alignParentStart="false"
-        android:layout_below="@id/date"
+        android:layout_below="@id/date_expense_list_item"
         android:prompt="@string/label_category" />
 
     <EditText
-        android:id="@+id/amount_spent"
+        android:id="@+id/amount_spent_list_expense_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -54,8 +54,8 @@
         android:id="@+id/currency_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/amount_spent"
-        android:layout_alignTop="@+id/amount_spent"
-        android:layout_toRightOf="@+id/amount_spent" />
+        android:layout_alignBottom="@+id/amount_spent_list_expense_item"
+        android:layout_alignTop="@+id/amount_spent_list_expense_item"
+        android:layout_toRightOf="@+id/amount_spent_list_expense_item" />
 
 </RelativeLayout>

@@ -12,6 +12,7 @@ import cmput301.ajford.expense_tracker.R;
 import cmput301.ajford.expense_tracker.TravelClaimsController;
 import cmput301.ajford.expense_tracker.R.id;
 import cmput301.ajford.expense_tracker.R.layout;
+import cmput301.ajford.expense_tracker.adapters.ExpenseItemListAdapter;
 import cmput301.ajford.expense_tracker.fragments.DatePickerFragment;
 import cmput301.ajford.expense_tracker.fragments.NewExpenseItemDialogFragment;
 import cmput301.ajford.expense_tracker.fragments.NewExpenseItemDialogFragment.ExpenseItemSavedListener;
@@ -141,9 +142,7 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase implement
 	
 	private void setExpenseItemAdapter() {
 		ListView expenseItemList = (ListView) findViewById(R.id.expense_items_list);
-		ArrayAdapter<ExpenseItem> adapter = new ArrayAdapter<ExpenseItem>(this,
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, travelClaim.getExpenseItems());
+		ExpenseItemListAdapter adapter = new ExpenseItemListAdapter(this, travelClaim.getExpenseItems());
 		expenseItemList.setAdapter(adapter);
 	}
 }

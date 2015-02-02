@@ -48,7 +48,7 @@ public class NewExpenseItemDialogFragment extends DialogFragment {
     	expenseItem = new ExpenseItem();
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		
-		dialogView = View.inflate(getActivity(), R.layout.fragment_new_expense_item, null);
+		dialogView = View.inflate(getActivity(), R.layout.fragment_expense_item_edit, null);
 		builder
 			.setView(dialogView)
 			.setPositiveButton(R.string.title_save, new DialogInterface.OnClickListener() {
@@ -85,7 +85,7 @@ public class NewExpenseItemDialogFragment extends DialogFragment {
 		
 		currencySpinner.setAdapter(currencyAdapter);
 		
-		EditText currencyField = (EditText) dialogView.findViewById(R.id.amount_spent);
+		EditText currencyField = (EditText) dialogView.findViewById(R.id.amount_spent_list_expense_item);
 		currencyField.setKeyListener(new MoneyValueFilter());
 		
 		return builder.create();
@@ -116,7 +116,7 @@ public class NewExpenseItemDialogFragment extends DialogFragment {
 	}
 	
 	private Date getDate() {
-		EditText dateField = (EditText) dialogView.findViewById(R.id.date);
+		EditText dateField = (EditText) dialogView.findViewById(R.id.date_expense_list_item);
 		
 		final Calendar c = Calendar.getInstance();
 		Date date;
@@ -142,7 +142,7 @@ public class NewExpenseItemDialogFragment extends DialogFragment {
 	}
 	
 	private Money getAmountSpent() {
-		String amountSpentString = ((EditText) dialogView.findViewById(R.id.amount_spent)).getEditableText().toString();
+		String amountSpentString = ((EditText) dialogView.findViewById(R.id.amount_spent_list_expense_item)).getEditableText().toString();
 		String currencyType = ((Spinner) dialogView.findViewById(R.id.currency_spinner)).getSelectedItem().toString();
 		
 		return Money.parse(currencyType + " " + amountSpentString);
