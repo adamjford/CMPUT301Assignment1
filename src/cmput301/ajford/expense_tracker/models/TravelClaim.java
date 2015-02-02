@@ -45,6 +45,10 @@ public class TravelClaim {
 	public UUID getID() {
 		return id;
 	}
+	
+	public static ArrayList<String> getValidStatuses() {
+		return allStatuses;
+	}
 
 	public ArrayList<ExpenseItem> getExpenseItems() {
 		return expenseItems;

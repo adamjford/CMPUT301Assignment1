@@ -10,8 +10,13 @@ import cmput301.ajford.expense_tracker.fragments.DatePickerFragment;
 
 import android.app.Activity;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 public abstract class TravelClaimActivityBase extends Activity {
+	protected String getStatus() {
+		return ((Spinner) findViewById(R.id.status_edit)).getSelectedItem().toString();
+	}
+	
 	protected String getDescription() {
 		return ((EditText) findViewById(R.id.travel_claim_description)).getEditableText().toString();
 	}

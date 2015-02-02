@@ -35,6 +35,9 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
 /**
  * An activity representing a single Travel Claim detail screen. This activity
@@ -72,11 +75,16 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase
 
 		if (travelClaim.isEditable()) {
 			initializeEditMode();
+		} else {
+			initializeViewMode();
 		}
+		
 
 		final ListView expenseItemList = (ListView) findViewById(R.id.expense_items_list);
 		setExpenseItemAdapter(expenseItemList);
-		expenseItemList
+
+		if (travelClaim.isEditable()) {
+			expenseItemList
 				.setOnItemLongClickListener(new OnItemLongClickListener() {
 					@Override
 					public boolean onItemLongClick(AdapterView<?> parent,
@@ -109,14 +117,21 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase
 						return true;
 					}
 				});
+		}
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		travelClaim.setDescription(getDescription());
-		travelClaim.setStartDate(getStartDateValue());
-		travelClaim.setEndDate(getEndDateValue());
+
+		if (travelClaim.isEditable()) {
+			travelClaim.setDescription(getDescription());
+            travelClaim.setStartDate(getStartDateValue());
+            travelClaim.setEndDate(getEndDateValue());
+		}
+
+		String status = getStatus();
+		travelClaim.setStatus(status);
 		TravelClaimsController.updatePerformed();
 		TravelClaimsController.persistStudentList();
 	}
@@ -135,22 +150,59 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase
 	public void initializeEditMode() {
 		setContentView(R.layout.activity_travelclaim_edit);
 
-		setStartDateValue();
-		setEndDateValue();
-		setDescription();
+		setStatusAdapter();
+		setStatusEdit();
+		setDescriptionEdit();
+		setStartDateEdit();
+		setEndDateEdit();
+	}
+	
+	public void initializeViewMode() {
+		setContentView(R.layout.activity_travelclaim_view);
+
+		setStatusAdapter();
+		setStatusEdit();
+		setDescriptionView();
+		setDateRangeView();
 	}
 
-	private void setDescription() {
+	private void setStatusEdit() {
+		Spinner s = (Spinner) findViewById(R.id.status_edit);
+		int position = TravelClaim.getValidStatuses().indexOf(travelClaim.getStatus());
+		s.setSelection(position);
+	}
+	
+	private void setText(String text, int id) {
+		TextView textView = (TextView) findViewById(id);
+		textView.setText(text);
+	}
+
+	private void setDescriptionView() {
+		setText(travelClaim.getDescription(), R.id.description_view);
+	}
+	
+	private void setDateRangeView() {
+		SimpleDateFormat format = new SimpleDateFormat(
+				DatePickerFragment.dateFormat);
+		
+		String value = format.format(travelClaim.getStartDate()) 
+						+ " - " 
+						+ format.format(travelClaim.getEndDate());
+
+		setText(value, R.id.date_range_view);
+	}
+
+	private void setDescriptionEdit() {
 		EditText descriptionField = (EditText) findViewById(R.id.travel_claim_description);
 		descriptionField.setText(travelClaim.getDescription());
 	}
 
-	private void setStartDateValue() {
+	private void setStartDateEdit() {
 		setDateValue(travelClaim.getStartDate(),
 				(EditText) findViewById(R.id.startDate));
 	}
 
-	private void setEndDateValue() {
+	private void setEndDateEdit() {
 		setDateValue(travelClaim.getEndDate(),
 				(EditText) findViewById(R.id.endDate));
 	}
@@ -203,5 +255,15 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase
 		
 		ExpenseItemListAdapter adapter = new ExpenseItemListAdapter(this, expenseItems);
 		expenseItemList.setAdapter(adapter);
+	}
+	
+	private void setStatusAdapter() {
+		SpinnerAdapter adapter = new ArrayAdapter<String>(
+				this, 
+				android.R.layout.simple_list_item_activated_1,
+				android.R.id.text1, 
+				TravelClaim.getValidStatuses());
+		Spinner s = (Spinner) findViewById(R.id.status_edit);
+		s.setAdapter(adapter);
 	}
 }
