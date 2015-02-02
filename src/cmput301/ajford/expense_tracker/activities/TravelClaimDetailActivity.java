@@ -2,6 +2,7 @@ package cmput301.ajford.expense_tracker.activities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -18,13 +19,17 @@ import cmput301.ajford.expense_tracker.fragments.NewExpenseItemDialogFragment;
 import cmput301.ajford.expense_tracker.fragments.NewExpenseItemDialogFragment.ExpenseItemSavedListener;
 import cmput301.ajford.expense_tracker.framework.FView;
 import cmput301.ajford.expense_tracker.models.*;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DialogFragment;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -38,12 +43,13 @@ import android.widget.ListView;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link TravelClaimDetailFragment}.
  */
-public class TravelClaimDetailActivity extends TravelClaimActivityBase implements ExpenseItemSavedListener {
+public class TravelClaimDetailActivity extends TravelClaimActivityBase
+		implements ExpenseItemSavedListener {
 
 	public static final String TravelClaimArgumentID = "TravelClaim";
-	
+
 	private TravelClaim travelClaim = null;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,21 +57,56 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase implement
 
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();
 		Intent intent = getIntent();
-		UUID id = (UUID) intent.getExtras().getSerializable(TravelClaimArgumentID);
+		UUID id = (UUID) intent.getExtras().getSerializable(
+				TravelClaimArgumentID);
 		travelClaim = TravelClaimsController.getTravelClaimByID(id);
-		
+
 		if (travelClaim.isEditable()) {
 			initializeEditMode();
 		}
-		
-		setExpenseItemAdapter();
+
+		final ListView expenseItemList = (ListView) findViewById(R.id.expense_items_list);
+		setExpenseItemAdapter(expenseItemList);
+		expenseItemList
+				.setOnItemLongClickListener(new OnItemLongClickListener() {
+					@Override
+					public boolean onItemLongClick(AdapterView<?> parent,
+							View view, int position, long id) {
+
+						final int index = position;
+						// Source: http://stackoverflow.com/a/2115770/14064 (2014-02-02)
+						(new AlertDialog.Builder(TravelClaimDetailActivity.this))
+								.setTitle("Delete entry")
+								.setMessage("Are you sure you want to delete this entry?")
+								.setPositiveButton(android.R.string.yes,
+										new DialogInterface.OnClickListener() {
+											public void onClick(
+													DialogInterface dialog, int which) {
+												ArrayList<ExpenseItem> expenseItems = TravelClaimDetailActivity.this.travelClaim.getExpenseItems();
+												expenseItems.remove(expenseItems.get(index));
+												TravelClaimDetailActivity.this.setExpenseItemAdapter(expenseItemList);
+											}
+										})
+								.setNegativeButton(android.R.string.no,
+										new DialogInterface.OnClickListener() {
+											public void onClick(
+													DialogInterface dialog, int which) {
+												// do nothing
+											}
+										})
+								.setIcon(android.R.drawable.ic_dialog_alert)
+								.show();
+
+						return true;
+					}
+				});
 	}
 
 	@Override
@@ -77,42 +118,48 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase implement
 		TravelClaimsController.updatePerformed();
 		TravelClaimsController.persistStudentList();
 	}
-	
-	// Source: 	http://developer.android.com/guide/topics/ui/controls/pickers.html (2015-02-01)
+
+	// Source:
+	// http://developer.android.com/guide/topics/ui/controls/pickers.html
+	// (2015-02-01)
 	// License: http://creativecommons.org/licenses/by/2.5/
 	public void showDatePickerDialog(View v) {
 		EditText dateField = (EditText) v;
-		
+
 		DialogFragment newFragment = new DatePickerFragment(dateField);
 		newFragment.show(getFragmentManager(), "datePicker");
 	}
 
 	public void initializeEditMode() {
 		setContentView(R.layout.activity_travelclaim_edit);
-		
+
 		setStartDateValue();
 		setEndDateValue();
 		setDescription();
 	}
-	
+
 	private void setDescription() {
 		EditText descriptionField = (EditText) findViewById(R.id.travel_claim_description);
 		descriptionField.setText(travelClaim.getDescription());
 	}
 
 	private void setStartDateValue() {
-		setDateValue(travelClaim.getStartDate(), (EditText) findViewById(R.id.startDate));
+		setDateValue(travelClaim.getStartDate(),
+				(EditText) findViewById(R.id.startDate));
 	}
 
 	private void setEndDateValue() {
-		setDateValue(travelClaim.getEndDate(), (EditText) findViewById(R.id.endDate));
+		setDateValue(travelClaim.getEndDate(),
+				(EditText) findViewById(R.id.endDate));
 	}
-	
+
 	private void setDateValue(Date date, EditText dateField) {
-        SimpleDateFormat format = new SimpleDateFormat(DatePickerFragment.dateFormat);
-        
-        dateField.setText(format.format(date));
+		SimpleDateFormat format = new SimpleDateFormat(
+				DatePickerFragment.dateFormat);
+
+		dateField.setText(format.format(date));
 	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
@@ -137,12 +184,12 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase implement
 	@Override
 	public void onExpenseItemSaved(ExpenseItem expenseItem) {
 		travelClaim.addExpenseItem(expenseItem);
-		setExpenseItemAdapter();
+		setExpenseItemAdapter((ListView) findViewById(R.id.expense_items_list));
 	}
-	
-	private void setExpenseItemAdapter() {
-		ListView expenseItemList = (ListView) findViewById(R.id.expense_items_list);
-		ExpenseItemListAdapter adapter = new ExpenseItemListAdapter(this, travelClaim.getExpenseItems());
+
+	private void setExpenseItemAdapter(ListView expenseItemList) {
+		ExpenseItemListAdapter adapter = new ExpenseItemListAdapter(this,
+				travelClaim.getExpenseItems());
 		expenseItemList.setAdapter(adapter);
 	}
 }
