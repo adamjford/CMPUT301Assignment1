@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 // Source: http://developer.android.com/guide/topics/ui/dialogs.html (2015-02-01)
 public class NewExpenseItemDialogFragment extends DialogFragment {
@@ -53,6 +56,15 @@ public class NewExpenseItemDialogFragment extends DialogFragment {
 					
 				}
 			});
+		
+		Spinner categorySpinner = (Spinner) view.findViewById(R.id.categorySpinner);
+		SpinnerAdapter spinnerAdapter = new ArrayAdapter<String>(
+				getActivity(), 
+				android.R.layout.simple_list_item_activated_1,
+				android.R.id.text1, 
+				ExpenseItem.getValidCategories());
+		
+		categorySpinner.setAdapter(spinnerAdapter);
 		
 		return builder.create();
 	}
