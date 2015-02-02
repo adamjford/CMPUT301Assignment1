@@ -31,11 +31,11 @@ import android.widget.SpinnerAdapter;
 // Source: http://developer.android.com/guide/topics/ui/dialogs.html (2015-02-01)
 public class NewExpenseItemDialogFragment extends DialogFragment {
 
-	public interface NewExpenseItemCreatedListener {
-		public void onNewExpenseItemCreated(ExpenseItem expenseItem);
+	public interface ExpenseItemSavedListener {
+		public void onExpenseItemSaved(ExpenseItem expenseItem);
 	}
 	
-    NewExpenseItemCreatedListener mListener;
+    private ExpenseItemSavedListener saveListener;
 	
 	/**
 	 * The ExpenseItem this fragment is presenting.
@@ -97,7 +97,7 @@ public class NewExpenseItemDialogFragment extends DialogFragment {
         // Verify that the host activity implements the callback interface
         try {
             // Instantiate the NoticeDialogListener so we can send events to the host
-            mListener = (NewExpenseItemCreatedListener) activity;
+            saveListener = (ExpenseItemSavedListener) activity;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(activity.toString()
@@ -105,13 +105,14 @@ public class NewExpenseItemDialogFragment extends DialogFragment {
         }
     }
 
+
 	public void saveExpenseItem() {
 		expenseItem.setDate(getDate());
 		expenseItem.setCategory(getCategory());
 		expenseItem.setDescription(getDescription());
 		expenseItem.setAmountSpent(getAmountSpent());
 		
-		mListener.onNewExpenseItemCreated(expenseItem);
+		saveListener.onExpenseItemSaved(expenseItem);
 	}
 	
 	private Date getDate() {

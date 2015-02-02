@@ -14,12 +14,13 @@ import cmput301.ajford.expense_tracker.R.id;
 import cmput301.ajford.expense_tracker.R.layout;
 import cmput301.ajford.expense_tracker.fragments.DatePickerFragment;
 import cmput301.ajford.expense_tracker.fragments.NewExpenseItemDialogFragment;
-import cmput301.ajford.expense_tracker.fragments.NewExpenseItemDialogFragment.NewExpenseItemCreatedListener;
+import cmput301.ajford.expense_tracker.fragments.NewExpenseItemDialogFragment.ExpenseItemSavedListener;
 import cmput301.ajford.expense_tracker.framework.FView;
 import cmput301.ajford.expense_tracker.models.*;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.DialogFragment;
 
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +35,7 @@ import android.widget.EditText;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link TravelClaimDetailFragment}.
  */
-public class TravelClaimDetailActivity extends TravelClaimActivityBase implements NewExpenseItemCreatedListener {
+public class TravelClaimDetailActivity extends TravelClaimActivityBase implements ExpenseItemSavedListener {
 
 	public static final String TravelClaimArgumentID = "TravelClaim";
 	
@@ -48,6 +49,11 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase implement
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
 		Intent intent = getIntent();
 		UUID id = (UUID) intent.getExtras().getSerializable(TravelClaimArgumentID);
 		travelClaim = TravelClaimsController.getTravelClaimByID(id);
@@ -56,7 +62,7 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase implement
 			initializeEditMode();
 		}
 	}
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -65,6 +71,15 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase implement
 		travelClaim.setEndDate(getEndDateValue());
 		TravelClaimsController.updatePerformed();
 		TravelClaimsController.persistStudentList();
+	}
+	
+	// Source: 	http://developer.android.com/guide/topics/ui/controls/pickers.html (2015-02-01)
+	// License: http://creativecommons.org/licenses/by/2.5/
+	public void showDatePickerDialog(View v) {
+		EditText dateField = (EditText) v;
+		
+		DialogFragment newFragment = new DatePickerFragment(dateField);
+		newFragment.show(getFragmentManager(), "datePicker");
 	}
 
 	public void initializeEditMode() {
@@ -115,7 +130,12 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase implement
 	}
 
 	@Override
-	public void onNewExpenseItemCreated(ExpenseItem expenseItem) {
+	public void onExpenseItemSaved(ExpenseItem expenseItem) {
 		travelClaim.addExpenseItem(expenseItem);
+		setExpenseItemAdapter();
+	}
+	
+	private void setExpenseItemAdapter() {
+		
 	}
 }

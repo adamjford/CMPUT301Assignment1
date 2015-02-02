@@ -9,6 +9,17 @@
     tools:context="cmput301.ajford.expense_tracker.fragments.NewTravelClaimFragment" >
 
     <EditText
+        android:id="@+id/travel_claim_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_description"
+        android:inputType="textMultiLine" >
+        
+        <requestFocus />
+    </EditText>
+
+    <EditText
         android:id="@+id/startDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +29,6 @@
         android:inputType="date"
         android:onClick="showDatePickerDialog" >
 
-        <requestFocus />
     </EditText>
 
     <EditText
@@ -30,13 +40,5 @@
         android:hint="@string/hint_end_date"
         android:inputType="date"
         android:onClick="showDatePickerDialog" />
-
-    <EditText
-        android:id="@+id/travel_claim_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/hint_description"
-        android:inputType="textMultiLine" />
 
 </LinearLayout>
