@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?android:attr/textAppearanceLarge"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:textIsSelectable="false"
+    >
 
     <TextView
-        android:id="@+id/description_expense_list_item"
+        android:id="@+id/description_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:text="Description"
-        android:textSize="25sp" />
-
-    <TextView
-        android:id="@+id/category_expense_list_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/description_expense_list_item"
-        android:text="Category"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/date_expense_list_item"
+        android:id="@+id/date_range_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Date"
-        android:textSize="20sp" />
+        android:text="StartDate - EndDate"
+        android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/amount_spent_list_expense_item"
+        android:id="@+id/status_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/description_expense_list_item"
-        android:text="Amount Spent"
-        android:textSize="20sp" />
+        android:layout_below="@id/description_view"
+        android:text="TextView"
+        android:textSize="15sp" />
+
+    <ListView
+        android:id="@+id/currencies_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/status_view" >
+
+    </ListView>
 
 </RelativeLayout>

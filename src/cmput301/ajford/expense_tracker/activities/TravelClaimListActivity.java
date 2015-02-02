@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import cmput301.ajford.expense_tracker.R;
 import cmput301.ajford.expense_tracker.TravelClaimsController;
+import cmput301.ajford.expense_tracker.adapters.TravelClaimsListAdapter;
 import cmput301.ajford.expense_tracker.framework.FView;
 import cmput301.ajford.expense_tracker.models.TravelClaim;
 import cmput301.ajford.expense_tracker.models.TravelClaimsList;
@@ -97,9 +98,7 @@ public class TravelClaimListActivity
 			}
 		});
 		
-		ArrayAdapter<TravelClaim> adapter = new ArrayAdapter<TravelClaim>(this,
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, travelClaims);
+		TravelClaimsListAdapter adapter = new TravelClaimsListAdapter(this, travelClaims);
 		listView.setAdapter(adapter);
 	}
 }

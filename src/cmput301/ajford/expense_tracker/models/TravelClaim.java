@@ -7,7 +7,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -92,6 +98,30 @@ public class TravelClaim {
 	
 	public boolean isEditable() {
 		return status == IN_PROGRESS || status == RETURNED;
+	}
+	
+	public ArrayList<String> getCurrencies() {
+		HashMap<CurrencyUnit, Money> map = new HashMap<CurrencyUnit, Money>();
+		
+		for(ExpenseItem item : getExpenseItems()) {
+			Money amountSpent = item.getAmountSpent();
+			CurrencyUnit unit = amountSpent.getCurrencyUnit();
+			if(!map.containsKey(item.getAmountSpent().getCurrencyUnit())) {
+				map.put(unit, amountSpent);
+			} else {
+				Money total = map.get(unit);
+				total = total.plus(amountSpent);
+				map.put(unit, total);
+			}
+		}
+		
+		ArrayList<String> strings = new ArrayList<String>();
+		// Source: http://stackoverflow.com/a/1066607/14064 (2015-02-02)
+		for(Map.Entry<CurrencyUnit, Money> entry : map.entrySet()) {
+			strings.add(entry.getValue().toString());
+		}
+		
+		return strings;
 	}
 	
 	@Override
