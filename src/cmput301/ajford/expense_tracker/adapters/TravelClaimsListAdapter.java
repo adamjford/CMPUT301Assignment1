@@ -60,8 +60,14 @@ public class TravelClaimsListAdapter extends ArrayAdapter<TravelClaim> {
 					android.R.layout.simple_list_item_1,
 					item.getCurrencies());
 		
-		ListView listView = (ListView) v.findViewById(R.id.currencies_list);
-		listView.setAdapter(currenciesAdapter);
+		TextView listView = (TextView) v.findViewById(R.id.currencies_view);
+		
+		String currencies = "";
+		for(String currency : item.getCurrencies()) {
+			currencies = currencies + "\n" + currency;
+		}
+		
+		listView.setText(currencies);
 		
 		return v;
 	}
