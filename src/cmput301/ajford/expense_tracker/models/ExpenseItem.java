@@ -67,4 +67,9 @@ public class ExpenseItem {
 	public void setAmountSpent(Money amountSpent) {
 		this.amountSpent = amountSpent;
 	}
+	
+	@Override
+	public String toString() {
+		return getDescription() + " - " + getCategory() + " - " + getAmountSpent().toString();
+	}
 }

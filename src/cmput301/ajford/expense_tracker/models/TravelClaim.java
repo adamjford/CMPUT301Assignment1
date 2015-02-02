@@ -41,7 +41,7 @@ public class TravelClaim {
 		return id;
 	}
 
-	public Collection<ExpenseItem> getExpenseItems() {
+	public ArrayList<ExpenseItem> getExpenseItems() {
 		return expenseItems;
 	}
 	

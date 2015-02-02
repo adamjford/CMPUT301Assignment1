@@ -24,7 +24,9 @@ import android.app.DialogFragment;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 
 /**
  * An activity representing a single Travel Claim detail screen. This activity
@@ -61,6 +63,8 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase implement
 		if (travelClaim.isEditable()) {
 			initializeEditMode();
 		}
+		
+		setExpenseItemAdapter();
 	}
 
 	@Override
@@ -136,6 +140,10 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase implement
 	}
 	
 	private void setExpenseItemAdapter() {
-		
+		ListView expenseItemList = (ListView) findViewById(R.id.expense_items_list);
+		ArrayAdapter<ExpenseItem> adapter = new ArrayAdapter<ExpenseItem>(this,
+				android.R.layout.simple_list_item_activated_1,
+				android.R.id.text1, travelClaim.getExpenseItems());
+		expenseItemList.setAdapter(adapter);
 	}
 }
