@@ -12,16 +12,16 @@ import cmput301.ajford.expense_tracker.R;
 import cmput301.ajford.expense_tracker.TravelClaimsController;
 import cmput301.ajford.expense_tracker.R.id;
 import cmput301.ajford.expense_tracker.R.layout;
+import cmput301.ajford.expense_tracker.activities.NewExpenseItemDialogFragment.NewExpenseItemCreatedListener;
 import cmput301.ajford.expense_tracker.fragments.DatePickerFragment;
 import cmput301.ajford.expense_tracker.framework.FView;
-import cmput301.ajford.expense_tracker.models.TravelClaim;
-import cmput301.ajford.expense_tracker.models.TravelClaimsList;
-import cmput301.ajford.expense_tracker.models.TravelClaimsListManager;
+import cmput301.ajford.expense_tracker.models.*;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 /**
@@ -33,7 +33,7 @@ import android.widget.EditText;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link TravelClaimDetailFragment}.
  */
-public class TravelClaimDetailActivity extends TravelClaimActivityBase {
+public class TravelClaimDetailActivity extends TravelClaimActivityBase implements NewExpenseItemCreatedListener {
 
 	public static final String TravelClaimArgumentID = "TravelClaim";
 	
@@ -106,5 +106,15 @@ public class TravelClaimDetailActivity extends TravelClaimActivityBase {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void addNewExpenseItem(View view) {
+		NewExpenseItemDialogFragment dialog = new NewExpenseItemDialogFragment();
+		dialog.show(getFragmentManager(), "NewExpenseItemDialogFragment");
+	}
+
+	@Override
+	public void onNewExpenseItemCreated(ExpenseItem expenseItem) {
+		travelClaim.addExpenseItem(expenseItem);
 	}
 }

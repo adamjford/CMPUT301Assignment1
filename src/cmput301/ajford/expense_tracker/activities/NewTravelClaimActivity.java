@@ -36,7 +36,7 @@ import android.widget.Toast;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link TravelClaimDetailFragment}.
  */
-public class NewTravelClaimActivity extends TravelClaimActivityBase implements NewExpenseItemCreatedListener {
+public class NewTravelClaimActivity extends TravelClaimActivityBase {
 	private TravelClaim travelClaim;
 
 	@Override
@@ -82,10 +82,6 @@ public class NewTravelClaimActivity extends TravelClaimActivityBase implements N
 		newFragment.show(getFragmentManager(), "datePicker");
 	}
 	
-	public void addNewExpenseItem(View view) {
-		NewExpenseItemDialogFragment dialog = new NewExpenseItemDialogFragment();
-		dialog.show(getFragmentManager(), "NewExpenseItemDialogFragment");
-	}
 	
 	public void saveTravelClaim(MenuItem menuItem) {
 		Date startDate = getStartDateValue();
@@ -107,8 +103,4 @@ public class NewTravelClaimActivity extends TravelClaimActivityBase implements N
 		}
 	}
 
-	@Override
-	public void onNewExpenseItemCreated(ExpenseItem expenseItem) {
-		travelClaim.addExpenseItem(expenseItem);
-	}
 }
