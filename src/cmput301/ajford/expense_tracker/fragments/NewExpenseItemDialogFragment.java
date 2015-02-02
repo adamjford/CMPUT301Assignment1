@@ -1,5 +1,12 @@
 package cmput301.ajford.expense_tracker.fragments;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import org.joda.money.Money;
+
 import cmput301.ajford.expense_tracker.R;
 import cmput301.ajford.expense_tracker.R.id;
 import cmput301.ajford.expense_tracker.R.layout;
@@ -15,6 +22,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView.FindListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -33,21 +41,21 @@ public class NewExpenseItemDialogFragment extends DialogFragment {
 	 * The ExpenseItem this fragment is presenting.
 	 */
 	private ExpenseItem expenseItem;
+	private View dialogView;
 
     @Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-    	ExpenseItem expenseItem = new ExpenseItem();
+    	expenseItem = new ExpenseItem();
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		
-		View view = View.inflate(getActivity(), R.layout.fragment_new_expense_item, null);
+		dialogView = View.inflate(getActivity(), R.layout.fragment_new_expense_item, null);
 		builder
-			.setView(view)
+			.setView(dialogView)
 			.setPositiveButton(R.string.title_save, new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-					
+					saveExpenseItem();
 				}
 			})
 			.setNegativeButton(R.string.title_cancel, new DialogInterface.OnClickListener() {
@@ -59,7 +67,7 @@ public class NewExpenseItemDialogFragment extends DialogFragment {
 				}
 			});
 		
-		Spinner categorySpinner = (Spinner) view.findViewById(R.id.categorySpinner);
+		Spinner categorySpinner = (Spinner) dialogView.findViewById(R.id.categorySpinner);
 		SpinnerAdapter categoryAdapter = new ArrayAdapter<String>(
 				getActivity(), 
 				android.R.layout.simple_list_item_activated_1,
@@ -68,7 +76,7 @@ public class NewExpenseItemDialogFragment extends DialogFragment {
 		
 		categorySpinner.setAdapter(categoryAdapter);
 
-		Spinner currencySpinner = (Spinner) view.findViewById(R.id.currency_spinner);
+		Spinner currencySpinner = (Spinner) dialogView.findViewById(R.id.currency_spinner);
 		SpinnerAdapter currencyAdapter = new ArrayAdapter<String>(
 				getActivity(), 
 				android.R.layout.simple_list_item_activated_1,
@@ -77,11 +85,12 @@ public class NewExpenseItemDialogFragment extends DialogFragment {
 		
 		currencySpinner.setAdapter(currencyAdapter);
 		
-		EditText currencyField = (EditText) view.findViewById(R.id.amount_spent);
+		EditText currencyField = (EditText) dialogView.findViewById(R.id.amount_spent);
 		currencyField.setKeyListener(new MoneyValueFilter());
 		
 		return builder.create();
 	}
+
 	@Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -95,7 +104,46 @@ public class NewExpenseItemDialogFragment extends DialogFragment {
                     + " must implement NewExpenseItemCreatedListener");
         }
     }
-	public void saveExpenseItem(MenuItem menuItem) {
+
+	public void saveExpenseItem() {
+		expenseItem.setDate(getDate());
+		expenseItem.setCategory(getCategory());
+		expenseItem.setDescription(getDescription());
+		expenseItem.setAmountSpent(getAmountSpent());
 		
+		mListener.onNewExpenseItemCreated(expenseItem);
+	}
+	
+	private Date getDate() {
+		EditText dateField = (EditText) dialogView.findViewById(R.id.date);
+		
+		final Calendar c = Calendar.getInstance();
+		Date date;
+
+        SimpleDateFormat format = new SimpleDateFormat(DatePickerFragment.dateFormat);
+        
+        try {
+        	c.setTime(format.parse(dateField.getEditableText().toString()));
+        	date = c.getTime();
+        } catch (ParseException e) {
+        	date = null;
+        }
+        
+        return date;
+	}
+	
+	private String getCategory() {
+		return ((Spinner) dialogView.findViewById(R.id.categorySpinner)).getSelectedItem().toString();
+	}
+	
+	private String getDescription() {
+		return ((EditText) dialogView.findViewById(R.id.travel_claim_description)).getEditableText().toString();
+	}
+	
+	private Money getAmountSpent() {
+		String amountSpentString = ((EditText) dialogView.findViewById(R.id.amount_spent)).getEditableText().toString();
+		String currencyType = ((Spinner) dialogView.findViewById(R.id.currency_spinner)).getSelectedItem().toString();
+		
+		return Money.parse(currencyType + " " + amountSpentString);
 	}
 }
